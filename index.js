@@ -2,6 +2,7 @@ $(document).ready(function () {
   const body = document.querySelector("body");
 
   $(window).scroll(function () {
+    
     $(".navbar").toggleClass("color-change", $(document).scrollTop() > 20);
     $(".tansprent_bg").toggleClass("size-change", $(document).scrollTop() > 20);
   });
@@ -37,3 +38,22 @@ var swiper = new Swiper(".mySwiper", {
     prevEl: ".button-prev",
   },
 });
+
+const vimeoPlayerContainer = document.querySelector("iframe");
+const toggleButton = $(".video-controls");
+const vimeoPlayer = new Vimeo.Player(vimeoPlayerContainer);
+
+toggleButton.click(function () {
+  vimeoPlayer.getPaused().then(function (paused) {
+    if (paused) {
+      vimeoPlayer.play();
+      $('.video-triangle').css('display', 'none');
+      toggleButton.addClass('videoPauseCursor');
+      toggleButton.removeClass('videoPlayCursor');
+    } else {
+      vimeoPlayer.pause();
+      toggleButton.removeClass('videoPauseCursor');
+      toggleButton.addClass('videoPlayCursor');
+    }
+  });
+}); 
